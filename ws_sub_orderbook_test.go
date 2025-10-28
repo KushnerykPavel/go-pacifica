@@ -21,13 +21,13 @@ func (d debugLogger) Errorf(format string, args ...any) {
 	fmt.Printf("[ERROR] "+format+"\n", args...)
 }
 
-func TestWebsocketClient_L2Book(t *testing.T) {
+func TestWebsocketClient_OrderBook(t *testing.T) {
 	client := pacifica.NewWebsocketClient(pacifica.MainnetWSURL)
 
 	err := client.Connect(context.Background())
 	assert.NoError(t, err)
 
-	_, _ = client.OrderBook(pacifica.OrderBookSubscriptionParams{Coin: "SOL", AggLevel: 1}, func(book pacifica.OrderBook, err error) {
+	_, _ = client.OrderBook(pacifica.OrderBookSubscriptionParams{Symbol: "SOL", AggLevel: 1}, func(book pacifica.OrderBook, err error) {
 		fmt.Println(book)
 	})
 

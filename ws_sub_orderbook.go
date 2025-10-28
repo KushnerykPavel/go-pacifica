@@ -5,7 +5,7 @@ import (
 )
 
 type OrderBookSubscriptionParams struct {
-	Coin     string
+	Symbol   string
 	AggLevel int
 }
 
@@ -15,7 +15,7 @@ func (w *WebsocketClient) OrderBook(
 ) (*Subscription, error) {
 	remotePayload := remoteOrderBookSubscriptionPayload{
 		Source:   ChannelOrderBook,
-		Symbol:   params.Coin,
+		Symbol:   params.Symbol,
 		AggLevel: params.AggLevel,
 	}
 	return w.subscribe(remotePayload, func(msg any) {

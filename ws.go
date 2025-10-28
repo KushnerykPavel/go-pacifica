@@ -56,7 +56,12 @@ func NewWebsocketClient(url string, opts ...WsOpt) *WebsocketClient {
 		done:          make(chan struct{}),
 		subscribers:   make(map[string]*uniqSubscriber),
 		msgDispatcherRegistry: map[string]msgDispatcher{
-			ChannelOrderBook: newMsgDispatcher[OrderBook](ChannelOrderBook),
+			ChannelPong:        newPongDispatcher(),
+			ChannelOrderBook:   newMsgDispatcher[OrderBook](ChannelOrderBook),
+			ChannelPrices:      newMsgDispatcher[Prices](ChannelPrices),
+			ChannelCandle:      newMsgDispatcher[Candle](ChannelCandle),
+			ChannelTrades:      newMsgDispatcher[Trades](ChannelTrades),
+			ChannelSubResponse: newNoopDispatcher(),
 		},
 	}
 
